@@ -1,0 +1,27 @@
+{
+    "hiddenSumFlag": "N",
+    "expireLink": "https://render.alipay.com/p/f/fd-jblxfp45/pages/home/index.html",
+    "icon": "https://gw.alipayobjects.com/mdn/rms_85a7db/afts/img/A*QKPWSp0YcdAAAAAAAAAAAAAAARQnAQ",
+    "link": "alipays://platformapi/startapp?appId=66666674&url=%2Fwww%2Findex.htm%3Fsource%3DFOOD_NOTICE_SCENE",
+    "subscribeConfig": "1",
+    "title": "蚂蚁庄园",
+    "templateId": "WALLET-FWC@remindDefaultText",
+    "content": "今日360克饲料待领取",
+    "linkName": "查看详情",
+    "assistMsg1": "你又可以喂小鸡做好事了",
+    "gmtValid": 2001667196155,
+    "sceneExt": {
+        "sceneTemplateId": "WALLET-FWC@remindDefaultText",
+        "sceneUrl": "alipays://platformapi/startapp?appId=20000042&publicBizType=LIFE_APP&sourceId=notifications&publicId=2017122501195098",
+        "sceneType": "lifePublic",
+        "forwardLifePublicMsg": "N",
+        "sceneName": "蚂蚁庄园",
+        "sceneId": "2017122501195098",
+        "sceneIcon": "https://gw.alipayobjects.com/mdn/rms_85a7db/afts/img/A*QKPWSp0YcdAAAAAAAAAAAAAAARQnAQ",
+        "sceneExtInfo": "",
+        "sceneTitle": "进入生活号"
+    },
+    "homePageTitle": "今日360克饲料待领取",
+    "imageUrl": "https://gw.alipayobjects.com/mdn/rms_ca2500/afts/img/A*WvQxR69gqvoAAAAAAAAAAAAAARQnAQ",
+    "buttonLink": "alipays://platformapi/startapp?appId=66666674&url=%2Fwww%2Findex.htm%3Fsource%3DFOOD_NOTICE_SCENE"
+}

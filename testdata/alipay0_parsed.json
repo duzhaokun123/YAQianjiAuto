@@ -1,0 +1,110 @@
+{
+    "title": "自动扣款成功",
+    "templateName": "支付助手",
+    "templateType": "BN",
+    "content": {
+        "status": "自动扣款成功",
+        "date": "06月06日",
+        "amountTip": "",
+        "money": "0.03",
+        "unit": "元",
+        "infoTip": "",
+        "failTip": "",
+        "goto": "alipays://platformapi/startapp?appId=20000003&actionType=toBillDetails&tradeNO=2023060622001465001416820203&bizType=TRADE",
+        "content": [
+            {
+                "title": "扣款说明：",
+                "content": "企鹅共享小额免密支付"
+            },
+            {
+                "title": "付款方式：",
+                "content": "中国银行储蓄卡(5416)"
+            },
+            {
+                "title": "交易对象：",
+                "content": "刘勤续"
+            }
+        ],
+        "ad": [],
+        "actions": [
+            {
+                "name": "管理当前自动扣款服务",
+                "url": "alipays://platformapi/startapp?appId=60000157&appClearTop=false&startMultApp=YES&url=https://render.alipay.com/p/s/mdeduct/www/index.html&unsign_params=agreementNo%3D20225902873561730000"
+            },
+            {
+                "name": "查看详情",
+                "url": "alipays://platformapi/startapp?appId=20000003&actionType=toBillDetails&tradeNO=2023060622001465001416820203&bizType=TRADE"
+            }
+        ]
+    },
+    "extraInfo": {
+        "topSubContent": "自动扣款成功",
+        "preValue": "￥",
+        "isPaymentMsg": true,
+        "assistName2": "付款方式",
+        "assistName3": "交易对象",
+        "assistName1": "扣款说明",
+        "templateId": "WALLET-FWC@remindNumber",
+        "content": "0.03",
+        "linkName": "管理当前自动扣款服务",
+        "assistMsg3": "刘勤续",
+        "sceneExt2": {
+            "sceneUrl": "alipays://platformapi/startapp?appId=20000003&actionType=toBillDetails&tradeNO=2023060622001465001416820203&bizType=TRADE",
+            "sceneType": "nativeApp",
+            "sceneName": "刘勤续",
+            "sceneIcon": "https://gw.alipayobjects.com/zos/mwalletmng/mukPPhtdXrnqECpCXXDq.png_[pixelWidth]x.png"
+        },
+        "assistMsg2": "中国银行储蓄卡(5416)",
+        "assistMsg1": "企鹅共享小额免密支付",
+        "assistName4": "",
+        "assistMsg5": "",
+        "assistMsg4": "",
+        "assistName5": "",
+        "buttonLink": "alipays://platformapi/startapp?appId=60000157&appClearTop=false&startMultApp=YES&url=https://render.alipay.com/p/s/mdeduct/www/index.html&unsign_params=agreementNo%3D20225902873561730000",
+        "cardAdInfo": {
+            "p116_tmp20220914": {
+                "bizMonitor": {
+                    "marketingUniqueId": "MU8ede73c706a34722acb2499c1009c8a7",
+                    "outBizId": "LIFE_MSG_TEXT|AMTT202301041491564916|-",
+                    "marketingRuleId": "MR41b88eb9d64442b09a87a890d6848fc3",
+                    "style": "actionLine",
+                    "marketingItemId": "MI501400035beb4580a6f92e161f06d081"
+                },
+                "expireTime": 1717583806465,
+                "marketingUniqueId": "MU8ede73c706a34722acb2499c1009c8a7",
+                "minClientVersion": "10.1.98",
+                "recommendTemplateId": "actionLine",
+                "viewInfo": {
+                    "btnName": "支付奖励",
+                    "tagIcon": "https://mdn.alipayobjects.com/huamei_cke3ep/afts/img/A*s1xhTYe-_PQAAAAAAAAAAAAADk1-AQ/original",
+                    "tagColor": "#FF6010",
+                    "actionUrl": "alipays://platformapi/startapp?appId=68687805&url=https%3A%2F%2Frender.alipay.com%2Fp%2Fyuyan%2F180020380000000023%2Fhome-page.html%3Fsource%3DLIFE_MSG_TEXT__AMTT202301041491564916%26chInfo%3DLIFE_MSG_TEXT",
+                    "tag": "领2积分兑缴费红包"
+                }
+            },
+            "p10": {
+                "bizMonitor": {
+                    "marketingUniqueId": "MU070830ba55a64efabbba672f05edb1db",
+                    "outBizId": "LIFE_MSG_TEXT|AMTT202301041491564916|-",
+                    "marketingRuleId": "MR41b88eb9d64442b09a87a890d6848fc3",
+                    "style": "recommendAssistLine",
+                    "marketingItemId": "MI501400035beb4580a6f92e161f06d081"
+                },
+                "expireTime": 1717583806465,
+                "marketingUniqueId": "MU070830ba55a64efabbba672f05edb1db",
+                "minClientVersion": "10.1.98",
+                "recommendTemplateId": "recommendAssistLine",
+                "viewInfo": {
+                    "assistMsg": "领2积分兑缴费红包",
+                    "btnBorderColor": "#FFAF87",
+                    "btnText": "去领取",
+                    "homePageContent": "",
+                    "btnTextColor": "#FF6010",
+                    "assistMsgColor": "#FF6010",
+                    "actionUrl": "alipays://platformapi/startapp?appId=68687805&url=https%3A%2F%2Frender.alipay.com%2Fp%2Fyuyan%2F180020380000000023%2Fhome-page.html%3Fsource%3DLIFE_MSG_TEXT__AMTT202301041491564916%26chInfo%3DLIFE_MSG_TEXT",
+                    "assistName": "本次奖励"
+                }
+            }
+        }
+    }
+}
