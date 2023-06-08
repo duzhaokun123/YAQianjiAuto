@@ -60,7 +60,7 @@ class ClassifierListActivity : ComponentActivity() {
                             }
                         }
                         val classifierDatas by
-                        classifierDataDao.getAllFlowData().collectAsState(initial = emptyList())
+                        classifierDataDao.getAllFlow().collectAsState(initial = emptyList())
                         LazyColumn {
                             items(classifierDatas) {
                                 ClassifierDataCard(it)

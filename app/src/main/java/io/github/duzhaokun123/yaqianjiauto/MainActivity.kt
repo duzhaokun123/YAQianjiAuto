@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.evgenii.jsevaluator.interfaces.JsCallback
+import io.github.duzhaokun123.yaqianjiauto.ui.account.AccountMapActivity
 import io.github.duzhaokun123.yaqianjiauto.ui.classifier.ClassifierListActivity
 import io.github.duzhaokun123.yaqianjiauto.ui.data.DataListActivity
 import io.github.duzhaokun123.yaqianjiauto.ui.parser.ParserListActivity
@@ -81,19 +82,19 @@ class MainActivity : ComponentActivity() {
                 }) {
                     Text("test")
                 }
-            }
-            Row {
-                Button(onClick = {
-                    startActivity(Intent(this@MainActivity, DataListActivity::class.java))
-                }) {
-                    Text("data")
-                }
                 Button(onClick = {
                     runIO {
                         logDao.deleteAll()
                     }
                 }) {
                     Text("clear")
+                }
+            }
+            Row {
+                Button(onClick = {
+                    startActivity(Intent(this@MainActivity, DataListActivity::class.java))
+                }) {
+                    Text("data")
                 }
                 Button(onClick = {
                     startActivity(Intent(this@MainActivity, ParserListActivity::class.java))
@@ -104,6 +105,11 @@ class MainActivity : ComponentActivity() {
                     startActivity(Intent(this@MainActivity, ClassifierListActivity::class.java))
                 }) {
                     Text("classifiers")
+                }
+                Button(onClick = {
+                    startActivity(Intent(this@MainActivity, AccountMapActivity::class.java))
+                }) {
+                    Text("account map")
                 }
             }
             var packageName by remember { mutableStateOf("") }

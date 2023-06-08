@@ -11,7 +11,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ClassifierDataDao {
     @Query("SELECT * FROM classifierdata")
-    fun getAllFlowData(): Flow<List<ClassifierData>>
+    fun getAllFlow(): Flow<List<ClassifierData>>
+
+    @Query("SELECT * FROM classifierdata")
+    fun getAll(): List<ClassifierData>
 
     @Insert
     fun insert(classifierData: ClassifierData)

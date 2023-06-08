@@ -307,12 +307,8 @@ class EditParserActivity : ComponentActivity() {
                 TextButton(onClick = {
                     parserData.toParser().parse(
                         Data(System.currentTimeMillis(), data, format, parserData.packageName),
-                        onParsed = {
-                            onResult(true to "$it")
-                        },
-                        onError = {
-                            onResult(false to it)
-                        })
+                        onParsed = { onResult(true to "$it") },
+                        onError = { onResult(false to it) })
                 }) {
                     Text("run")
                 }

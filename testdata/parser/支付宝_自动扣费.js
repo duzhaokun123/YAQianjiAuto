@@ -12,5 +12,6 @@ function parse(data, format, timestamp) {
         if (item.title == "交易对象：") result.target = item.content
     })
     result.extras = {}
+    result.timestamp = timestamp
     return JSON.stringify(result)
 }

@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -41,6 +42,8 @@ import androidx.compose.ui.unit.dp
 import io.github.duzhaokun123.yaqianjiauto.Application
 import io.github.duzhaokun123.yaqianjiauto.BuildConfig
 import io.github.duzhaokun123.yaqianjiauto.R
+import io.github.duzhaokun123.yaqianjiauto.accountmapper.AccountMapper
+import io.github.duzhaokun123.yaqianjiauto.classifier.Classifierer
 import io.github.duzhaokun123.yaqianjiauto.model.Data
 import io.github.duzhaokun123.yaqianjiauto.parser.Parserer
 import io.github.duzhaokun123.yaqianjiauto.ui.theme.YA自动记账Theme
@@ -50,6 +53,9 @@ import io.github.duzhaokun123.yaqianjiauto.utils.times
 import io.github.duzhaokun123.yaqianjiauto.utils.toDataTime
 
 class DataListActivity : ComponentActivity() {
+    companion object {
+        const val TAG = "DataListActivity"
+    }
     private val dataDao by lazy { (application as Application).db.dataDao() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -169,7 +175,14 @@ class DataListActivity : ComponentActivity() {
                     }
                     TextButton(onClick = {
                         Parserer.parse(data, onParsed = { parsedData, parserName ->
-
+                            Classifierer.classify(parsedData, onClassified = { classifierParsedData, classifierName ->
+                                AccountMapper.map(classifierParsedData, onMapped = { mappedClassifiedParsedData, accountMaps ->
+                                    Log.d(TAG, "mappedClassifiedParsedData: $mappedClassifiedParsedData")
+                                    Log.d(TAG, "accountMaps: $accountMaps")
+                                })
+                            }, onFailed = {
+                                TipUtil.showToast(it)
+                            })
                         }, onFailed = {
                             TipUtil.showToast(it)
                         })

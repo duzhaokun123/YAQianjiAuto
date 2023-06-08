@@ -30,5 +30,6 @@ function parse(data, format, timestamp) {
     result.extras[leftText] = left
     result.extras[middleText] = middle
     result.extras[rightText] = right
+    result.timestamp = timestamp
     return JSON.stringify(result)
 }

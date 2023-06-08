@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -61,6 +60,7 @@ import io.github.duzhaokun123.yaqianjiauto.R
 import io.github.duzhaokun123.yaqianjiauto.model.ClassifierData
 import io.github.duzhaokun123.yaqianjiauto.model.ParsedData
 import io.github.duzhaokun123.yaqianjiauto.model.ParserData
+import io.github.duzhaokun123.yaqianjiauto.model.toClassifier
 import io.github.duzhaokun123.yaqianjiauto.ui.theme.YA自动记账Theme
 import io.github.duzhaokun123.yaqianjiauto.utils.TipUtil
 import io.github.duzhaokun123.yaqianjiauto.utils.fromJson
@@ -264,8 +264,13 @@ class EditClassifierActivity : ComponentActivity() {
             }
 
             if (showTestDialog) {
-                TestDialog(classifierData) {
-                    showTestDialog = false
+                TestDialog(ClassifierData(type, code, name, description),
+                    { showTestDialog = false }, { parserResult = it })
+            }
+
+            if (parserResult != null) {
+                ResultDialog(result = parserResult!!) {
+                    parserResult = null
                 }
             }
         }
@@ -280,7 +285,11 @@ class EditClassifierActivity : ComponentActivity() {
     }
 
     @Composable
-    fun TestDialog(classifierData: ClassifierData, onDismiss: () -> Unit) {
+    fun TestDialog(
+        classifierData: ClassifierData,
+        onDismiss: () -> Unit,
+        onResult: (Pair<Boolean, String>) -> Unit
+    ) {
         var type by remember { mutableStateOf(1) }
         val typeStr = ParsedData.typeToStr(type)
         var account by remember { mutableStateOf("") }
@@ -292,17 +301,32 @@ class EditClassifierActivity : ComponentActivity() {
         AlertDialog(onDismissRequest = onDismiss,
             confirmButton = {
                 TextButton(onClick = {
-
+                    classifierData.toClassifier().classify(
+                        ParsedData(
+                            type,
+                            account,
+                            balance.toDoubleOrNull() ?: 0.0,
+                            target,
+                            remark,
+                            timestamp,
+                            extras
+                        ),
+                        onClassified = { onResult(true to "$it") },
+                        onError = { onResult(false to it) }
+                    )
                 }) {
                     Text("run")
                 }
             },
             title = {
                 Row {
-                    Text(stringResource(R.string.test))
+                    Text(stringResource(R.string.test), modifier = Modifier.weight(1f))
                     IconButton(onClick = {
-                        val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val parsedDataJson = clipboardManager.primaryClip?.getItemAt(0)?.text?.toString() ?: return@IconButton
+                        val clipboardManager =
+                            getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val parsedDataJson =
+                            clipboardManager.primaryClip?.getItemAt(0)?.text?.toString()
+                                ?: return@IconButton
                         runCatching {
                             gson.fromJson<ParsedData>(parsedDataJson)
                         }.onFailure {
@@ -316,11 +340,11 @@ class EditClassifierActivity : ComponentActivity() {
                             timestamp = parsedData.timestamp
                             extras = parsedData.extras
                         }
-                    }) {
+                    }, modifier = Modifier.align(Alignment.CenterVertically)) {
                         Icon(Icons.Default.ContentPaste, contentDescription = "paste")
                     }
                 }
-                    },
+            },
             text = {
                 Column {
                     Box {
@@ -399,15 +423,20 @@ class EditClassifierActivity : ComponentActivity() {
                             Icon(Icons.Default.Add, contentDescription = "add")
                         }
                     }
-                    LazyColumn(modifier = Modifier
-                        .heightIn(50.dp, 150.dp)
-                        .fillMaxWidth()) {
+                    LazyColumn(
+                        modifier = Modifier
+                            .heightIn(50.dp, 150.dp)
+                            .fillMaxWidth()
+                    ) {
                         items(extras.toList()) { (key, vale) ->
                             Row {
                                 IconButton(onClick = { extras = extras - key }) {
                                     Icon(Icons.Default.Delete, contentDescription = "delete")
                                 }
-                                Text("$key: $vale", modifier = Modifier.align(Alignment.CenterVertically))
+                                Text(
+                                    "$key: $vale",
+                                    modifier = Modifier.align(Alignment.CenterVertically)
+                                )
                             }
                         }
                     }
@@ -419,7 +448,27 @@ class EditClassifierActivity : ComponentActivity() {
     @Composable
     fun PreviewTestDialog() {
         YA自动记账Theme {
-            TestDialog(ClassifierData.empty()) {}
+            TestDialog(ClassifierData.empty(), {}, {})
         }
+    }
+
+    @Composable
+    fun ResultDialog(result: Pair<Boolean, String>, onDismiss: () -> Unit) {
+        val (noError, message) = result
+        AlertDialog(onDismissRequest = onDismiss,
+            confirmButton = {
+                TextButton(onClick = onDismiss) {
+                    Text("ok")
+                }
+            },
+            title = {
+                Text(if (noError) "noError" else "error")
+            },
+            text = {
+                Text(
+                    message, style = MaterialTheme.typography.bodySmall,
+                    fontFamily = FontFamily.Monospace
+                )
+            })
     }
 }

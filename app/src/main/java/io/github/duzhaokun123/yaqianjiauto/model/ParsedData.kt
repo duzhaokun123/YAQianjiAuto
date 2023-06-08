@@ -1,5 +1,7 @@
 package io.github.duzhaokun123.yaqianjiauto.model
 
+import io.github.duzhaokun123.yaqianjiauto.utils.gsonPretty
+
 data class ParsedData(
     // 1: 支出
     // 2: 收入
@@ -27,5 +29,9 @@ data class ParsedData(
         const val Expense = 1
         const val Income = 2
         const val Transfer = 3
+    }
+
+     override fun toString(): String {
+        return gsonPretty.toJson(this)
     }
 }

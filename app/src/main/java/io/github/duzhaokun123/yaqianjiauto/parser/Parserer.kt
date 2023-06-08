@@ -9,14 +9,13 @@ import io.github.duzhaokun123.yaqianjiauto.utils.runIO
 import io.github.duzhaokun123.yaqianjiauto.utils.runMain
 
 object Parserer {
-    const val TAG = "Parserer"
-    val parserDataDao by lazy { application.db.parserDataDao() }
+    private val parserDataDao by lazy { application.db.parserDataDao() }
 
     fun parse(data: Data, onParsed: (ParsedData, String) -> Unit, onFailed: (String) -> Unit) {
         runIO {
             val parserDatas = parserDataDao.getByPackageName(data.packageName)
             if (parserDatas.isEmpty()) {
-                TipUtil.showToast("no parser found")
+                onFailed("no parser found")
                 return@runIO
             }
             runMain {

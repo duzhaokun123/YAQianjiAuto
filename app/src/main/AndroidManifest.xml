@@ -43,6 +43,7 @@
         <activity android:name=".ui.parser.EditParserActivity" />
         <activity android:name=".ui.classifier.ClassifierListActivity" />
         <activity android:name=".ui.classifier.EditClassifierActivity" />
+        <activity android:name=".ui.account.AccountMapActivity" />
 
         <receiver
             android:name=".receiver.DataReceiver"

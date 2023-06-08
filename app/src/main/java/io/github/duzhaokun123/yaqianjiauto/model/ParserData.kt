@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import io.github.duzhaokun123.yaqianjiauto.parser.BaseParser
 import io.github.duzhaokun123.yaqianjiauto.parser.EmptyParser
 import io.github.duzhaokun123.yaqianjiauto.parser.JsParser
+import io.github.duzhaokun123.yaqianjiauto.utils.gsonPretty
 
 @Entity
 data class ParserData(
