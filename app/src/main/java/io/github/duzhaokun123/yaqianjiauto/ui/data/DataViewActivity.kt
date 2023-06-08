@@ -50,7 +50,7 @@ class DataViewActivity : ComponentActivity() {
                     val data by
                     (application as Application).db.dataDao().getByIndexFlow(dataIndex).collectAsState(initial = null)
                     if (data == null)
-                        Text("no data index $dataIndex")
+                        Text("no code index $dataIndex")
                     else
                         DataView(data!!)
                 }

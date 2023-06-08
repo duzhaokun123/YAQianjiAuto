@@ -1,8 +1,10 @@
 package io.github.duzhaokun123.yaqianjiauto.utils
 
 import android.icu.text.SimpleDateFormat
+import com.evgenii.jsevaluator.JsEvaluator
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import io.github.duzhaokun123.yaqianjiauto.application
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -37,3 +39,5 @@ operator fun String.times(i: Int): String {
     }
     return sb.toString()
 }
+
+val jsEvaluator by lazy { JsEvaluator(application) }

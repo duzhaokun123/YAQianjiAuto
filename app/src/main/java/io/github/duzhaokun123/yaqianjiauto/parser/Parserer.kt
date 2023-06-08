@@ -1,8 +1,8 @@
 package io.github.duzhaokun123.yaqianjiauto.parser
 
-import android.util.Log
 import io.github.duzhaokun123.yaqianjiauto.application
 import io.github.duzhaokun123.yaqianjiauto.model.Data
+import io.github.duzhaokun123.yaqianjiauto.model.ParsedData
 import io.github.duzhaokun123.yaqianjiauto.model.toParser
 import io.github.duzhaokun123.yaqianjiauto.utils.TipUtil
 import io.github.duzhaokun123.yaqianjiauto.utils.runIO
@@ -12,33 +12,35 @@ object Parserer {
     const val TAG = "Parserer"
     val parserDataDao by lazy { application.db.parserDataDao() }
 
-    fun parse(data: Data) {
+    fun parse(data: Data, onParsed: (ParsedData, String) -> Unit, onFailed: (String) -> Unit) {
         runIO {
             val parserDatas = parserDataDao.getByPackageName(data.packageName)
             if (parserDatas.isEmpty()) {
-                TipUtil.showToast("no parser for ${data.packageName}")
+                TipUtil.showToast("no parser found")
                 return@runIO
             }
             runMain {
                 var i = 0
-                var parserData: BaseParser
+                var parser: BaseParser
                 fun doParse() {
                     if (i >= parserDatas.size) {
-                        TipUtil.showToast("no parser resulted for ${data.packageName}")
+                        onFailed("no parser resulted")
                         return
                     }
-                    parserData = parserDatas[i].toParser()
-                    parserData.parse(data,
+                    val parserData = parserDatas[i]
+                    parser = parserData.toParser()
+                    parser.parse(data,
                         onParsed = { parsedData ->
                             if (parsedData == null) {
                                 i++
                                 doParse()
                             } else {
-                                Log.d(TAG, "doParse: $parsedData")
-                                TipUtil.showToast("parsed ${data.packageName}")
+                                onParsed(parsedData, parserData.name)
                             }
                         }, onError = {
-                            TipUtil.showToast(it)
+                            onFailed(it)
+                            i++
+                            doParse()
                         })
                 }
                 doParse()

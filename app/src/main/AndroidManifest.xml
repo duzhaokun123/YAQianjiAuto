@@ -41,6 +41,8 @@
         <activity android:name=".ui.parser.ParserListActivity" />
         <activity android:name=".ui.data.DataViewActivity" />
         <activity android:name=".ui.parser.EditParserActivity" />
+        <activity android:name=".ui.classifier.ClassifierListActivity" />
+        <activity android:name=".ui.classifier.EditClassifierActivity" />
 
         <receiver
             android:name=".receiver.DataReceiver"

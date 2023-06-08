@@ -1,0 +1,41 @@
+{
+    "title": "蚂蚁财富",
+    "templateName": "基金每日收益提醒",
+    "templateType": "S",
+    "content": "∝+0.12∝",
+    "extraInfo": {
+        "subCgyMiddleKey": "稳健理财",
+        "hiddenSumFlag": "Y",
+        "expireLink": "https://render.alipay.com/p/f/fd-jblxfp45/pages/home/index.html",
+        "isNumberType": false,
+        "icon": "https://mdn.alipay.com/wsdk/img?fileid=A*K_cbS69OOIMAAAAAAAAAAABkAfYuAQ&bz=life_app&zoom=2048w_80q_1l",
+        "link": "alipays://platformapi/startapp?appId=68688004&url=%2Fwww%2Findex.html%3Ffr%3DpushMsg&nbupdate=syncforce&nbversion=0.1.2209022010.11",
+        "assistName1": "收益日期",
+        "subscribeConfig": "1",
+        "title": "蚂蚁财富",
+        "topText": "昨日收益",
+        "subCgyRightValue": "∝0.00∝",
+        "templateId": "WALLET-FWC@remindSubCategory",
+        "subCgyLeftKey": "灵活取用",
+        "linkName": "查看详情",
+        "assistMsg1": "2023-06-07总资产收益已更新",
+        "gmtValid": 2001807357106,
+        "sceneExt": {
+            "sceneTemplateId": "WALLET-FWC@remindSubCategory",
+            "sceneUrl": "alipays://platformapi/startapp?appId=20000042&publicBizType=LIFE_APP&sourceId=notifications&publicId=2015111300788246",
+            "sceneType": "lifePublic",
+            "forwardLifePublicMsg": "N",
+            "sceneName": "蚂蚁财富",
+            "sceneId": "2015111300788246",
+            "sceneIcon": "https://mdn.alipay.com/wsdk/img?fileid=A*K_cbS69OOIMAAAAAAAAAAABkAfYuAQ&bz=life_app&zoom=2048w_80q_1l",
+            "sceneExtInfo": "",
+            "sceneTitle": "进入生活号"
+        },
+        "homePageTitle": "你的总资产收益已更新",
+        "subCgyMiddleValue": "∝+0.11∝",
+        "buttonLink": "alipays://platformapi/startapp?appId=68688004&url=%2Fwww%2Findex.html%3Ffr%3DpushMsg&nbupdate=syncforce&nbversion=0.1.2209022010.11",
+        "mainText": "∝+0.12∝",
+        "subCgyLeftValue": "∝+0.01∝",
+        "subCgyRightKey": "进阶理财"
+    }
+}

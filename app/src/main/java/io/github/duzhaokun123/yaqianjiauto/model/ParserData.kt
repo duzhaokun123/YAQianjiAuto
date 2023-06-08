@@ -17,7 +17,7 @@ data class ParserData(
     @ColumnInfo
     val packageName: String,
     @ColumnInfo
-    val data: String,
+    val code: String,
     @ColumnInfo
     val name: String,
     @ColumnInfo

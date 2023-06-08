@@ -44,6 +44,7 @@ import io.github.duzhaokun123.yaqianjiauto.R
 import io.github.duzhaokun123.yaqianjiauto.model.Data
 import io.github.duzhaokun123.yaqianjiauto.parser.Parserer
 import io.github.duzhaokun123.yaqianjiauto.ui.theme.YA自动记账Theme
+import io.github.duzhaokun123.yaqianjiauto.utils.TipUtil
 import io.github.duzhaokun123.yaqianjiauto.utils.runIO
 import io.github.duzhaokun123.yaqianjiauto.utils.times
 import io.github.duzhaokun123.yaqianjiauto.utils.toDataTime
@@ -153,7 +154,7 @@ class DataListActivity : ComponentActivity() {
                     TextButton(onClick = {
                         val clipboardManager =
                             getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-                        clipboardManager.setPrimaryClip(ClipData.newPlainText("data", data.data))
+                        clipboardManager.setPrimaryClip(ClipData.newPlainText("code", data.data))
                         onDismiss()
                     }, modifier = Modifier.fillMaxWidth()) {
                         Icon(
@@ -167,7 +168,11 @@ class DataListActivity : ComponentActivity() {
                         )
                     }
                     TextButton(onClick = {
-                        Parserer.parse(data)
+                        Parserer.parse(data, onParsed = { parsedData, parserName ->
+
+                        }, onFailed = {
+                            TipUtil.showToast(it)
+                        })
                         onDismiss()
                     }, modifier = Modifier.fillMaxWidth()) {
                         Icon(
