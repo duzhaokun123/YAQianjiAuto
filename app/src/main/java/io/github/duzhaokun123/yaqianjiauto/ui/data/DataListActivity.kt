@@ -46,8 +46,10 @@ import io.github.duzhaokun123.yaqianjiauto.accountmapper.AccountMapper
 import io.github.duzhaokun123.yaqianjiauto.classifier.Classifierer
 import io.github.duzhaokun123.yaqianjiauto.model.Data
 import io.github.duzhaokun123.yaqianjiauto.parser.Parserer
+import io.github.duzhaokun123.yaqianjiauto.ui.record.RecordActivity
 import io.github.duzhaokun123.yaqianjiauto.ui.theme.YA自动记账Theme
 import io.github.duzhaokun123.yaqianjiauto.utils.TipUtil
+import io.github.duzhaokun123.yaqianjiauto.utils.gson
 import io.github.duzhaokun123.yaqianjiauto.utils.runIO
 import io.github.duzhaokun123.yaqianjiauto.utils.times
 import io.github.duzhaokun123.yaqianjiauto.utils.toDataTime
@@ -177,8 +179,13 @@ class DataListActivity : ComponentActivity() {
                         Parserer.parse(data, onParsed = { parsedData, parserName ->
                             Classifierer.classify(parsedData, onClassified = { classifierParsedData, classifierName ->
                                 AccountMapper.map(classifierParsedData, onMapped = { mappedClassifiedParsedData, accountMaps ->
-                                    Log.d(TAG, "mappedClassifiedParsedData: $mappedClassifiedParsedData")
-                                    Log.d(TAG, "accountMaps: $accountMaps")
+                                    startActivity(Intent(this@DataListActivity, RecordActivity::class.java).apply {
+                                        putExtra(RecordActivity.EXTRA_DATA, gson.toJson(mappedClassifiedParsedData))
+                                        putExtra(RecordActivity.EXTRA_APP_NAME, "test(${data.packageName})")
+                                        putExtra(RecordActivity.EXTRA_PARSER_NAME, parserName)
+                                        putExtra(RecordActivity.EXTRA_CLASSIFIER_NAME, classifierName)
+                                        putExtra(RecordActivity.EXTRA_ACCOUNT_MAPS, accountMaps.map { gson.toJson(it) }.toTypedArray())
+                                    })
                                 })
                             }, onFailed = {
                                 TipUtil.showToast(it)

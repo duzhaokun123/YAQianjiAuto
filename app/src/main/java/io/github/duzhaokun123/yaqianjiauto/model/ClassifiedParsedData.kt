@@ -6,7 +6,7 @@ import io.github.duzhaokun123.yaqianjiauto.utils.gsonPretty
 data class ClassifiedParsedData(
     @SerializedName("parsed_data")
     val parsedData: ParsedData,
-    val `class`: String?,
+    val `class`: String,
     val subclass: String?
 ) {
     override fun toString(): String {

@@ -44,6 +44,9 @@
         <activity android:name=".ui.classifier.ClassifierListActivity" />
         <activity android:name=".ui.classifier.EditClassifierActivity" />
         <activity android:name=".ui.account.AccountMapActivity" />
+        <activity
+            android:name=".ui.record.RecordActivity"
+            android:theme="@style/Theme.YA自动记账.Translucent" />
 
         <receiver
             android:name=".receiver.DataReceiver"
