@@ -5,6 +5,9 @@ import android.graphics.PixelFormat
 import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,6 +46,7 @@ import io.github.duzhaokun123.yaqianjiauto.model.MappedClassifiedParsedData
 import io.github.duzhaokun123.yaqianjiauto.model.ParsedData
 import io.github.duzhaokun123.yaqianjiauto.recorder.QianJiRecorder
 import io.github.duzhaokun123.yaqianjiauto.ui.theme.YA自动记账Theme
+import io.github.duzhaokun123.yaqianjiauto.utils.runIO
 import io.github.duzhaokun123.yaqianjiauto.utils.runMain
 import io.github.duzhaokun123.yaqianjiauto.utils.toDataTime
 import kotlinx.coroutines.Job
@@ -62,6 +66,7 @@ class RecordOverlayWindow(
     lateinit var lifecycleOwner: LifecycleOwner
     val timeoutTimer = Channel<Int>()
     var timeoutTimerJob: Job? = null
+    val showing = Channel<Boolean>()
     fun show(timeout: Int = 0) {
         val params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -93,16 +98,23 @@ class RecordOverlayWindow(
                     Spacer(modifier = Modifier
                         .fillMaxSize()
                         .clickable { finish() })
-                    RecordCard(
-                        mappedClassifiedParsedData,
-                        appName,
-                        parserName,
-                        classifierName,
-                        accountMaps,
+                    val showing by showing.receiveAsFlow().collectAsState(initial = false)
+                    AnimatedVisibility(
+                        visible = showing,
                         modifier = Modifier.align(Alignment.BottomCenter),
-                        onDismiss = ::finish,
-                        timeout = timeout
-                    )
+                        enter = slideInVertically { it * 2 },
+                        exit = slideOutVertically { it * 2 }
+                    ) {
+                        RecordCard(
+                            mappedClassifiedParsedData,
+                            appName,
+                            parserName,
+                            classifierName,
+                            accountMaps,
+                            onDismiss = ::finish,
+                            timeout = timeout
+                        )
+                    }
                 }
             }
         }
@@ -110,24 +122,31 @@ class RecordOverlayWindow(
             timeoutTimerJob = runMain {
                 for (i in timeout downTo 0) {
                     timeoutTimer.send(i)
-                    delay(1000)
+                    delay(500)
                 }
                 record(mappedClassifiedParsedData)
                 finish()
             }
         }
         windowManager.addView(composeView, params)
+        runMain {
+            showing.send(true)
+        }
         lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_START)
     }
 
     private fun finish() {
+        runMain {
+            showing.send(false)
+            delay(1000)
+            lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+            lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+            windowManager.removeView(composeView)
+            lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        }
         timeoutTimerJob?.cancel()
         timeoutTimer.cancel()
-        lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-        lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
-        windowManager.removeView(composeView)
-        lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     }
 
     class LifecycleOwner : SavedStateRegistryOwner {
@@ -165,12 +184,11 @@ class RecordOverlayWindow(
 fun RecordCard(
     mappedClassifiedParsedData: MappedClassifiedParsedData,
     appName: String, parserName: String, classifierName: String, accountMaps: List<AccountMap>,
-    modifier: Modifier = Modifier, onDismiss: () -> Unit, timeout: Int?
+    onDismiss: () -> Unit, timeout: Int?
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .then(modifier)
     ) {
         Column(
             modifier = Modifier
