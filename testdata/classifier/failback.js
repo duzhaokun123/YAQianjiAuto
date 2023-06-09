@@ -1,5 +1,5 @@
 function classify(parsedData) {
     return JSON.stringify({
-        "class": "其他",
+        "category": "其他",
     })
 }

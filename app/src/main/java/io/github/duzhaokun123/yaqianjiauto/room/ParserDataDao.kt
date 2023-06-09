@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import androidx.room.Upsert
 import io.github.duzhaokun123.yaqianjiauto.model.ParserData
 import kotlinx.coroutines.flow.Flow
@@ -22,8 +23,8 @@ interface ParserDataDao {
     @Upsert
     fun upsert(parserData: ParserData)
 
-    @Upsert
-    fun upsertAll(parserDataList: List<ParserData>)
+    @Update
+    fun updateAll(parserDataList: List<ParserData>)
 
     @Query("SELECT * FROM parserdata WHERE packageName = :packageName")
     fun getByPackageName(packageName: String): List<ParserData>

@@ -17,13 +17,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
-import com.wakaztahir.codeeditor.highlight.prettify.PrettifyParser
-import com.wakaztahir.codeeditor.highlight.theme.CodeThemeType
-import com.wakaztahir.codeeditor.highlight.utils.parseCodeAsAnnotatedString
+import com.wakaztahir.codeeditor.prettify.PrettifyParser
+import com.wakaztahir.codeeditor.theme.CodeThemeType
+import com.wakaztahir.codeeditor.utils.parseCodeAsAnnotatedString
 import io.github.duzhaokun123.yaqianjiauto.Application
 import io.github.duzhaokun123.yaqianjiauto.BuildConfig
 import io.github.duzhaokun123.yaqianjiauto.model.Data
@@ -66,14 +66,18 @@ class DataViewActivity : ComponentActivity() {
         }
         val parser = remember { PrettifyParser() }
         val themeState by remember { mutableStateOf(CodeThemeType.Monokai) }
-        val theme = remember(themeState) { themeState.theme() }
+        val theme = remember(themeState) { themeState.theme }
         val parsedCode = remember {
-            parseCodeAsAnnotatedString(
-                parser = parser,
-                theme = theme,
-                lang = data.format,
-                code = code
-            )
+            try {
+                parseCodeAsAnnotatedString(
+                    parser = parser,
+                    theme = theme,
+                    lang = data.format,
+                    code = code
+                )
+            } catch (ignored: Exception) {
+                AnnotatedString.Builder(code).toAnnotatedString()
+            }
         }
         Column {
             Text(data.packageName, style = MaterialTheme.typography.titleMedium)

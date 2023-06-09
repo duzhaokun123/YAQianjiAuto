@@ -1,19 +1,19 @@
 [versions]
 agp = "8.0.2"
 #noinspection GradleDependency
+codeeditor = "v3.1.1"
 ezXHelper = "1.0.3"
 gson = "2.10.1"
 jsEvaluatorForAndroid = "v6.0.0"
 kotlin = "1.8.21"
 ksp = "1.8.21-1.0.11"
 core-ktx = "1.10.1"
-junit = "4.13.2"
-androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.6.1"
 activity-compose = "1.7.2"
-compose-bom = "2023.05.01"
+compose-bom = "2023.06.00"
 room = "2.5.1"
+snakeyamlEngine = "2.6"
 xmlToJson = "1.5.3"
 xposed-api = "82"
 
@@ -21,16 +21,16 @@ xposed-api = "82"
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+codeeditor = { module = "com.github.Qawaz.compose-code-editor:codeeditor", version.ref = "codeeditor" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 ezXHelper = { module = "com.github.kyuubiran:EzXHelper", version.ref = "ezXHelper" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jsEvaluatorForAndroid = { module = "com.github.evgenyneu:js-evaluator-for-android", version.ref = "jsEvaluatorForAndroid" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
-androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
+snakeyaml-engine = { module = "org.snakeyaml:snakeyaml-engine", version.ref = "snakeyamlEngine" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }

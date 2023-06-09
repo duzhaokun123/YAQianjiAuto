@@ -2,7 +2,6 @@ package io.github.duzhaokun123.yaqianjiauto
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -23,14 +22,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.evgenii.jsevaluator.interfaces.JsCallback
 import io.github.duzhaokun123.yaqianjiauto.ui.account.AccountMapActivity
 import io.github.duzhaokun123.yaqianjiauto.ui.classifier.ClassifierListActivity
 import io.github.duzhaokun123.yaqianjiauto.ui.data.DataListActivity
 import io.github.duzhaokun123.yaqianjiauto.ui.parser.ParserListActivity
 import io.github.duzhaokun123.yaqianjiauto.ui.theme.YA自动记账Theme
-import io.github.duzhaokun123.yaqianjiauto.utils.TipUtil
-import io.github.duzhaokun123.yaqianjiauto.utils.jsEvaluator
 import io.github.duzhaokun123.yaqianjiauto.utils.runIO
 import io.github.duzhaokun123.yaqianjiauto.utils.toDataTime
 import io.github.duzhaokun123.yaqianjiauto.xposed.DataSender
@@ -68,19 +64,6 @@ class MainActivity : ComponentActivity() {
                     DataSender.sendLog("YA自动记账", "test log")
                 }) {
                     Text(text = "send log")
-                }
-                Button(onClick = {
-                    jsEvaluator.callFunction("function myFunction(a, b, c, d) { return JSON.stringify({\"name\":\"oec2003\",\"age\":\"25\"}); }", object : JsCallback {
-                        override fun onResult(value: String?) {
-                            TipUtil.showToast("$value")
-                        }
-
-                        override fun onError(errorMessage: String?) {
-                            TipUtil.showToast("$errorMessage")
-                        }
-                    }, "myFunction", "parameter 1", "parameter 2", 912, 101.3)
-                }) {
-                    Text("test")
                 }
                 Button(onClick = {
                     runIO {

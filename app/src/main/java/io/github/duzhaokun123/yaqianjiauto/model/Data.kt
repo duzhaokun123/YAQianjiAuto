@@ -6,14 +6,15 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Data(
-    @ColumnInfo
+    @ColumnInfo("timestamp")
     val timestamp: Long,
-    @ColumnInfo
+    @ColumnInfo("data")
     val data: String,
-    @ColumnInfo
+    @ColumnInfo("format")
     val format: String,
-    @ColumnInfo
+    @ColumnInfo("packageName")
     val packageName: String,
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo("index")
     val index: Long = 0
 )

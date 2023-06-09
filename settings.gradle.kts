@@ -17,4 +17,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "YA自动记账"
 include(":app")
- 

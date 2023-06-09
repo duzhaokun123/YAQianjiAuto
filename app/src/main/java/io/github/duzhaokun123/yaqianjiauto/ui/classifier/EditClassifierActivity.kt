@@ -52,14 +52,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.wakaztahir.codeeditor.highlight.prettify.PrettifyParser
-import com.wakaztahir.codeeditor.highlight.theme.CodeThemeType
-import com.wakaztahir.codeeditor.highlight.utils.parseCodeAsAnnotatedString
+import com.wakaztahir.codeeditor.prettify.PrettifyParser
+import com.wakaztahir.codeeditor.theme.CodeThemeType
+import com.wakaztahir.codeeditor.utils.parseCodeAsAnnotatedString
 import io.github.duzhaokun123.yaqianjiauto.Application
 import io.github.duzhaokun123.yaqianjiauto.R
 import io.github.duzhaokun123.yaqianjiauto.model.ClassifierData
 import io.github.duzhaokun123.yaqianjiauto.model.ParsedData
-import io.github.duzhaokun123.yaqianjiauto.model.ParserData
 import io.github.duzhaokun123.yaqianjiauto.model.toClassifier
 import io.github.duzhaokun123.yaqianjiauto.ui.theme.YA自动记账Theme
 import io.github.duzhaokun123.yaqianjiauto.utils.TipUtil
@@ -159,13 +158,13 @@ class EditClassifierActivity : ComponentActivity() {
                             onDismissRequest = { typeDropDown = false }) {
                             DropdownMenuItem(
                                 text = { Text("empty") },
-                                onClick = { type = ParserData.Type.Empty; typeDropDown = false })
+                                onClick = { type = ClassifierData.Type.Empty; typeDropDown = false })
                             DropdownMenuItem(
                                 text = { Text("js") },
-                                onClick = { type = ParserData.Type.JS; typeDropDown = false })
+                                onClick = { type = ClassifierData.Type.JS; typeDropDown = false })
                             DropdownMenuItem(
-                                text = { Text("python") },
-                                onClick = { type = ParserData.Type.Python; typeDropDown = false })
+                                text = { Text("yaml") },
+                                onClick = { type = ClassifierData.Type.Yaml; typeDropDown = false })
                         }
                     }
                     TextField(
@@ -213,14 +212,14 @@ class EditClassifierActivity : ComponentActivity() {
                         Text("import")
                     }
                     TextButton(onClick = {
-                        if (type == ParserData.Type.Empty) return@TextButton
+                        if (type == ClassifierData.Type.Empty) return@TextButton
                         toExportCode = code
                         Log.d("TAG", "a: $toExportCode")
                         fileExportLauncher.launch(
                             "${packageName}_${name}.${
                                 when (type) {
-                                    ParserData.Type.JS -> "js"
-                                    ParserData.Type.Python -> "py"
+                                    ClassifierData.Type.JS -> "js"
+                                    ClassifierData.Type.Yaml -> "yaml"
                                     else -> "txt"
                                 }
                             }"
@@ -239,28 +238,31 @@ class EditClassifierActivity : ComponentActivity() {
                 }
 
             }
-            val parser = remember { PrettifyParser() }
-            val themeState by remember { mutableStateOf(CodeThemeType.Monokai) }
-            val theme = remember(themeState) { themeState.theme() }
-            if (isEdit) {
-                OutlinedTextField(
-                    value = code,
-                    onValueChange = { code = it },
-                    label = { Text("code") },
-                    modifier = Modifier.fillMaxSize(),
-                    textStyle = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace)
-                )
-            } else {
-                val parsedCode = TextFieldValue(
-                    parseCodeAsAnnotatedString(parser, theme, typeStr, code)
-                )
-                OutlinedTextField(
-                    value = parsedCode,
-                    onValueChange = {},
-                    label = { Text("code") },
-                    modifier = Modifier.fillMaxSize(),
-                    textStyle = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace)
-                )
+
+            if (type != ClassifierData.Type.Empty) {
+                val parser = remember { PrettifyParser() }
+                val themeState by remember { mutableStateOf(CodeThemeType.Monokai) }
+                val theme = remember(themeState) { themeState.theme }
+                if (isEdit) {
+                    OutlinedTextField(
+                        value = code,
+                        onValueChange = { code = it },
+                        label = { Text("code") },
+                        modifier = Modifier.fillMaxSize(),
+                        textStyle = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace)
+                    )
+                } else {
+                    val parsedCode = TextFieldValue(
+                        parseCodeAsAnnotatedString(parser, theme, typeStr, code)
+                    )
+                    OutlinedTextField(
+                        value = parsedCode,
+                        onValueChange = {},
+                        label = { Text("code") },
+                        modifier = Modifier.fillMaxSize(),
+                        textStyle = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace)
+                    )
+                }
             }
 
             if (showTestDialog) {

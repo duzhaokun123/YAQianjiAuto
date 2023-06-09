@@ -45,7 +45,7 @@ fun YA自动记账Theme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        dynamicColor -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
@@ -56,6 +56,7 @@ fun YA自动记账Theme(
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
+            if (view.context !is Activity) return@SideEffect
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme

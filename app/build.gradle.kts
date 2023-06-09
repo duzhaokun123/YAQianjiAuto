@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "io.github.duzhaokun123.yaqianjiauto"
-        minSdk = 24
+        minSdk = 33
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -23,11 +23,13 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -76,6 +78,7 @@ dependencies {
     implementation(libs.xmlToJson)
 
     implementation(libs.jsEvaluatorForAndroid)
+    implementation(libs.snakeyaml.engine)
 
-    implementation("com.github.qawaz:compose-code-editor:2.0.3")
+    implementation(libs.codeeditor)
 }

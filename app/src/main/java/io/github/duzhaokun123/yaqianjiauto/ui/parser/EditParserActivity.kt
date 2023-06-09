@@ -48,9 +48,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.wakaztahir.codeeditor.highlight.prettify.PrettifyParser
-import com.wakaztahir.codeeditor.highlight.theme.CodeThemeType
-import com.wakaztahir.codeeditor.highlight.utils.parseCodeAsAnnotatedString
+import com.wakaztahir.codeeditor.prettify.PrettifyParser
+import com.wakaztahir.codeeditor.theme.CodeThemeType
+import com.wakaztahir.codeeditor.utils.parseCodeAsAnnotatedString
 import io.github.duzhaokun123.yaqianjiauto.Application
 import io.github.duzhaokun123.yaqianjiauto.BuildConfig
 import io.github.duzhaokun123.yaqianjiauto.R
@@ -158,9 +158,6 @@ class EditParserActivity : ComponentActivity() {
                             DropdownMenuItem(
                                 text = { Text("js") },
                                 onClick = { type = ParserData.Type.JS; typeDropDown = false })
-                            DropdownMenuItem(
-                                text = { Text("python") },
-                                onClick = { type = ParserData.Type.Python; typeDropDown = false })
                         }
                     }
                     TextField(
@@ -223,7 +220,6 @@ class EditParserActivity : ComponentActivity() {
                             "${packageName}_${name}.${
                                 when (type) {
                                     ParserData.Type.JS -> "js"
-                                    ParserData.Type.Python -> "py"
                                     else -> "txt"
                                 }
                             }"
@@ -242,28 +238,30 @@ class EditParserActivity : ComponentActivity() {
                 }
             }
 
-            val parser = remember { PrettifyParser() }
-            val themeState by remember { mutableStateOf(CodeThemeType.Monokai) }
-            val theme = remember(themeState) { themeState.theme() }
-            if (isEdit) {
-                OutlinedTextField(
-                    value = code,
-                    onValueChange = { code = it },
-                    label = { Text("code") },
-                    modifier = Modifier.fillMaxSize(),
-                    textStyle = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace)
-                )
-            } else {
-                val parsedCode = TextFieldValue(
-                    parseCodeAsAnnotatedString(parser, theme, typeStr, code)
-                )
-                OutlinedTextField(
-                    value = parsedCode,
-                    onValueChange = {},
-                    label = { Text("code") },
-                    modifier = Modifier.fillMaxSize(),
-                    textStyle = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace)
-                )
+            if (type != ParserData.Type.Empty) {
+                val parser = remember { PrettifyParser() }
+                val themeState by remember { mutableStateOf(CodeThemeType.Monokai) }
+                val theme = remember(themeState) { themeState.theme }
+                if (isEdit) {
+                    OutlinedTextField(
+                        value = code,
+                        onValueChange = { code = it },
+                        label = { Text("code") },
+                        modifier = Modifier.fillMaxSize(),
+                        textStyle = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace)
+                    )
+                } else {
+                    val parsedCode = TextFieldValue(
+                        parseCodeAsAnnotatedString(parser, theme, typeStr, code)
+                    )
+                    OutlinedTextField(
+                        value = parsedCode,
+                        onValueChange = {},
+                        label = { Text("code") },
+                        modifier = Modifier.fillMaxSize(),
+                        textStyle = MaterialTheme.typography.bodySmall.copy(fontFamily = FontFamily.Monospace)
+                    )
+                }
             }
         }
         if (showTestDialog) {

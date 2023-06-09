@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import androidx.room.Upsert
 import io.github.duzhaokun123.yaqianjiauto.model.ClassifierData
 import kotlinx.coroutines.flow.Flow
@@ -25,9 +26,9 @@ interface ClassifierDataDao {
     @Upsert
     fun upsert(classifierData: ClassifierData)
 
-    @Upsert
-    fun upsertAll(classifierDataList: List<ClassifierData>)
+    @Update
+    fun updateAll(classifierDataList: List<ClassifierData>)
 
     @Query("SELECT * FROM classifierdata WHERE `index` = :index")
-    fun getByIndexFlow(index: Long): Flow<ClassifierData>
+    fun getByIndexFlow(index: Long): Flow<ClassifierData?>
 }

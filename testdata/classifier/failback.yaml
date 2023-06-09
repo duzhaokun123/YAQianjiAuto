@@ -1,0 +1,5 @@
+type: [1, 2]
+category: 其他
+# subcategory: 其他
+target: ".*"
+remark: ".*"

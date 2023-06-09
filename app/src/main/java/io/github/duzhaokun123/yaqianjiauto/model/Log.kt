@@ -6,14 +6,15 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Log (
-    @ColumnInfo
+    @ColumnInfo("timestamp")
     val timestamp: Long,
-    @ColumnInfo
+    @ColumnInfo("tag")
     val tag: String,
-    @ColumnInfo
+    @ColumnInfo("log")
     val log: String,
-    @ColumnInfo
+    @ColumnInfo("packageName")
     val packageName: String,
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo("index")
     val index: Long = 0
 )

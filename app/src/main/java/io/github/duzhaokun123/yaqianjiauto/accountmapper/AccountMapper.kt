@@ -12,17 +12,17 @@ object AccountMapper {
 
     fun map(
         classifiedParsedData: ClassifiedParsedData,
-        onMapped: (MappedClassifiedParsedData, Set<AccountMap>) -> Unit
+        onMapped: (MappedClassifiedParsedData, List<AccountMap>) -> Unit
     ) {
         runIO {
-            var overrideAccount: String? = null
+            val overrideAccount: String?
             val accountMap = accountMapDao.getByFrom(classifiedParsedData.parsedData.account)
             overrideAccount = if (accountMap == null)
                 classifiedParsedData.parsedData.account
             else
                 accountMap.to
 
-            var overrideTarget: String? = null
+            val overrideTarget: String?
             var targetMap: AccountMap? = null
             if (classifiedParsedData.parsedData.type != ParsedData.Type.Transfer)
                 overrideTarget = classifiedParsedData.parsedData.target
@@ -36,7 +36,7 @@ object AccountMapper {
             onMapped(
                 MappedClassifiedParsedData(
                     classifiedParsedData, overrideAccount, overrideTarget
-                ), setOfNotNull(accountMap, targetMap)
+                ), listOfNotNull(accountMap, targetMap)
             )
         }
     }

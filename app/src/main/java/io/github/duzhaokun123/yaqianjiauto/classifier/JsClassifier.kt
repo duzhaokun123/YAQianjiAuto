@@ -1,6 +1,7 @@
 package io.github.duzhaokun123.yaqianjiauto.classifier
 
 import com.evgenii.jsevaluator.interfaces.JsCallback
+import com.google.gson.JsonObject
 import io.github.duzhaokun123.yaqianjiauto.model.ClassifiedParsedData
 import io.github.duzhaokun123.yaqianjiauto.model.ClassifierData
 import io.github.duzhaokun123.yaqianjiauto.model.ParsedData
@@ -25,11 +26,16 @@ class JsClassifier(private val classifierData: ClassifierData): BaseClassifier {
                 if (value == "undefined") onClassified(null)
                 else {
                     runCatching {
-                        gson.fromJson<ClassifiedParsedData>(value)
+                        val classifyInfo = gson.fromJson<JsonObject>(value)
+                        ClassifiedParsedData(
+                            parsedData,
+                            classifyInfo["category"].asString,
+                            classifyInfo["subcategory"]?.asString
+                        )
                     }.onFailure {
                         onError(it.message ?: "unknown error")
                     }.onSuccess {
-                        onClassified(it.copy(parsedData = parsedData))
+                        onClassified(it)
                     }
                 }
             }

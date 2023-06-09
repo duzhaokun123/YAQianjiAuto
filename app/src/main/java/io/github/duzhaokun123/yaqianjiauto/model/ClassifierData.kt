@@ -6,33 +6,35 @@ import androidx.room.PrimaryKey
 import io.github.duzhaokun123.yaqianjiauto.classifier.BaseClassifier
 import io.github.duzhaokun123.yaqianjiauto.classifier.EmptyClassifier
 import io.github.duzhaokun123.yaqianjiauto.classifier.JsClassifier
+import io.github.duzhaokun123.yaqianjiauto.classifier.YamlClassifier
 
 @Entity
 data class ClassifierData(
     // -1: empty
     // 0: js
-    // 1: python
-    @ColumnInfo
+    // 1: yaml
+    @ColumnInfo("type")
     val type: Int,
-    @ColumnInfo
+    @ColumnInfo("code")
     val code: String,
-    @ColumnInfo
+    @ColumnInfo("name")
     val name: String,
-    @ColumnInfo
+    @ColumnInfo("description")
     val description: String,
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo("index")
     val index: Long = 0
 ) {
     companion object {
         fun empty(): ClassifierData {
-            return ClassifierData(-1, "", "", "")
+            return ClassifierData(Type.Empty, "", "", "")
         }
 
         fun typeToStr(type: Int): String {
             return when (type) {
-                ParserData.Type.Empty -> "empty"
-                ParserData.Type.JS -> "js"
-                ParserData.Type.Python -> "python"
+                Type.Empty -> "empty"
+                Type.JS -> "js"
+                Type.Yaml -> "yaml"
                 else -> throw Exception("unknown classifier type: $type")
             }
         }
@@ -41,14 +43,15 @@ data class ClassifierData(
     object Type {
         const val Empty = -1
         const val JS = 0
-        const val Python = 1
+        const val Yaml = 1
     }
 }
 
 fun ClassifierData.toClassifier(): BaseClassifier {
     return when (type) {
-        ParserData.Type.Empty -> EmptyClassifier
-        ParserData.Type.JS -> JsClassifier(this)
+        ClassifierData.Type.Empty -> EmptyClassifier
+        ClassifierData.Type.JS -> JsClassifier(this)
+        ClassifierData.Type.Yaml -> YamlClassifier(this)
         else -> throw Exception("unknown classifier type: $type")
     }
 }

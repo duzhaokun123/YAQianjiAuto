@@ -1,0 +1,49 @@
+package io.github.duzhaokun123.yaqianjiauto.recorder
+
+import android.content.Intent
+import android.net.Uri
+import io.github.duzhaokun123.yaqianjiauto.application
+import io.github.duzhaokun123.yaqianjiauto.model.MappedClassifiedParsedData
+import io.github.duzhaokun123.yaqianjiauto.model.ParsedData
+import io.github.duzhaokun123.yaqianjiauto.utils.toDataTime
+
+object QianJiRecorder: BaseRecorder {
+    const val TAG = "QianJiRecorder"
+    override val name: String = "钱迹"
+    override fun record(mappedClassifiedParsedData: MappedClassifiedParsedData) {
+        when(mappedClassifiedParsedData.classifiedParsedData.parsedData!!.type) {
+            ParsedData.Type.Expense -> expense(mappedClassifiedParsedData)
+            ParsedData.Type.Income -> income(mappedClassifiedParsedData)
+            ParsedData.Type.Transfer -> transfer(mappedClassifiedParsedData)
+            else -> throw Exception("unknown parsed data type: ${mappedClassifiedParsedData.classifiedParsedData.parsedData.type}")
+        }
+    }
+
+    private fun expense(mappedClassifiedParsedData: MappedClassifiedParsedData) {
+        val uri = Uri.Builder()
+            .scheme("qianji")
+            .authority("publicapi")
+            .path("addbill")
+            .appendQueryParameter("type", "0")
+            .appendQueryParameter("money", mappedClassifiedParsedData.classifiedParsedData.parsedData!!.balance.toString())
+            .appendQueryParameter("time", mappedClassifiedParsedData.classifiedParsedData.parsedData.timestamp.toDataTime())
+            .appendQueryParameter("remark", "${mappedClassifiedParsedData.classifiedParsedData.parsedData.target} - ${mappedClassifiedParsedData.classifiedParsedData.parsedData.remark}")
+            .appendQueryParameter("catename", mappedClassifiedParsedData.classifiedParsedData.subcategory ?: mappedClassifiedParsedData.classifiedParsedData.category)
+            .appendQueryParameter("accountname", mappedClassifiedParsedData.overrideAccount)
+            .appendQueryParameter("showresutl", "1")
+            .build()
+        application.startActivity(Intent().apply {
+            action = Intent.ACTION_VIEW
+            data = uri
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        })
+    }
+
+    private fun income(mappedClassifiedParsedData: MappedClassifiedParsedData) {
+
+    }
+
+    private fun transfer(mappedClassifiedParsedData: MappedClassifiedParsedData) {
+
+    }
+}

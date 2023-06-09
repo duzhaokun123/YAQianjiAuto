@@ -12,30 +12,29 @@ import io.github.duzhaokun123.yaqianjiauto.utils.gsonPretty
 data class ParserData(
     // -1: empty
     // 0: js
-    // 1: python
-    @ColumnInfo
+    @ColumnInfo("type")
     val type: Int,
-    @ColumnInfo
+    @ColumnInfo("packageName")
     val packageName: String,
-    @ColumnInfo
+    @ColumnInfo("code")
     val code: String,
-    @ColumnInfo
+    @ColumnInfo("name")
     val name: String,
-    @ColumnInfo
+    @ColumnInfo("description")
     val description: String,
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo("index")
     val index: Long = 0
 ) {
     companion object {
         fun empty(): ParserData {
-            return ParserData(-1, "", "", "", "")
+            return ParserData(Type.Empty, "", "", "", "")
         }
 
         fun typeToStr(type: Int): String {
             return when (type) {
                 Type.Empty -> "empty"
                 Type.JS -> "js"
-                Type.Python -> "python"
                 else -> throw Exception("unknown parser type: $type")
             }
         }
@@ -44,7 +43,6 @@ data class ParserData(
     object Type {
         const val Empty = -1
         const val JS = 0
-        const val Python = 1
     }
 }
 

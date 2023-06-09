@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+
     <application
         android:name=".Application"
         android:allowBackup="true"
@@ -44,9 +47,6 @@
         <activity android:name=".ui.classifier.ClassifierListActivity" />
         <activity android:name=".ui.classifier.EditClassifierActivity" />
         <activity android:name=".ui.account.AccountMapActivity" />
-        <activity
-            android:name=".ui.record.RecordActivity"
-            android:theme="@style/Theme.YA自动记账.Translucent" />
 
         <receiver
             android:name=".receiver.DataReceiver"
