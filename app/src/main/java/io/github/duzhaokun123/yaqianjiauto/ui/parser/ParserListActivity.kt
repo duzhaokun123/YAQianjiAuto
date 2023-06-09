@@ -109,11 +109,11 @@ class ParserListActivity : ComponentActivity() {
                 })
             }) {
             Box(modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)) {
+                .fillMaxWidth()
+                .padding(8.dp)) {
                 Column{
                     Text(parserData.name, style = MaterialTheme.typography.titleMedium)
-                    Text(parserData.packageName, style = MaterialTheme.typography.labelSmall)
+                    Text("${parserData.packageName} ${ParserData.typeToStr(parserData.type)}", style = MaterialTheme.typography.labelSmall)
                     Text(parserData.description, maxLines = 4, overflow = TextOverflow.Ellipsis, style = MaterialTheme.typography.bodySmall)
                 }
 

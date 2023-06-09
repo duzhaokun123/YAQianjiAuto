@@ -67,6 +67,7 @@ class RecordOverlayWindow(
     val timeoutTimer = Channel<Int>()
     var timeoutTimerJob: Job? = null
     val showing = Channel<Boolean>()
+    var finished = false
     fun show(timeout: Int = 0) {
         val params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -122,7 +123,7 @@ class RecordOverlayWindow(
             timeoutTimerJob = runMain {
                 for (i in timeout downTo 0) {
                     timeoutTimer.send(i)
-                    delay(500)
+                    delay(1000)
                 }
                 record(mappedClassifiedParsedData)
                 finish()
@@ -137,9 +138,11 @@ class RecordOverlayWindow(
     }
 
     private fun finish() {
+        if (finished) return
+        finished = true
         runMain {
             showing.send(false)
-            delay(1000)
+            delay(250)
             lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
             lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
             windowManager.removeView(composeView)
