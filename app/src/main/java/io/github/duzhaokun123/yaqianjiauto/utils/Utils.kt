@@ -9,6 +9,7 @@ import io.github.duzhaokun123.yaqianjiauto.application
 import io.github.duzhaokun123.yaqianjiauto.classifier.Classifierer
 import io.github.duzhaokun123.yaqianjiauto.model.Data
 import io.github.duzhaokun123.yaqianjiauto.parser.Parserer
+import io.github.duzhaokun123.yaqianjiauto.ui.record.MiniRecordOverlayWindow
 import io.github.duzhaokun123.yaqianjiauto.ui.record.RecordOverlayWindow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,16 +53,22 @@ val jsEvaluator by lazy { JsEvaluator(application) }
 
 val yaml by lazy { Load(LoadSettings.builder().build()) }
 
-fun Data.record(timeout: Int = -1, onFailed: (String) -> Unit = {}) {
+fun Data.record(timeout: Int = -1, onFailed: (String) -> Unit = {}, mini: Boolean = false) {
     Parserer.parse(this, onParsed = { parsedData, parserName ->
         Classifierer.classify(parsedData, onClassified = { classifierParsedData, classifierName ->
             AccountMapper.map(
                 classifierParsedData,
                 onMapped = { mappedClassifiedParsedData, accountMaps ->
                     runMain {
-                        RecordOverlayWindow(
-                            mappedClassifiedParsedData, packageName, parserName, classifierName, accountMaps
-                        ).show(timeout)
+                        if (mini) {
+                            MiniRecordOverlayWindow(
+                                mappedClassifiedParsedData, packageName, parserName, classifierName, accountMaps
+                            ).show(timeout)
+                        } else {
+                            RecordOverlayWindow(
+                                mappedClassifiedParsedData, packageName, parserName, classifierName, accountMaps
+                            ).show()
+                        }
                     }
                 })
         }, onFailed = onFailed)

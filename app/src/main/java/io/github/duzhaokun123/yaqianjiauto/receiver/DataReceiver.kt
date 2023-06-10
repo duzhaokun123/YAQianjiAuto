@@ -32,7 +32,7 @@ class DataReceiver : BroadcastReceiver() {
                 runIO {
                     val data = Data(System.currentTimeMillis(), data, format, packageName)
                     dataDao.insert(data)
-                    data.record(5)
+                    data.record(5, mini = true)
                 }
             }
 

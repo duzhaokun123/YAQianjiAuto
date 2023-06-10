@@ -1,8 +1,5 @@
 package io.github.duzhaokun123.yaqianjiauto.ui.record
 
-import android.content.Context
-import android.graphics.PixelFormat
-import android.os.Bundle
 import android.view.Gravity
 import android.view.WindowManager
 import androidx.compose.animation.AnimatedVisibility
@@ -25,33 +22,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.setViewTreeLifecycleOwner
-import androidx.lifecycle.setViewTreeViewModelStoreOwner
-import androidx.savedstate.SavedStateRegistry
-import androidx.savedstate.SavedStateRegistryController
-import androidx.savedstate.SavedStateRegistryOwner
-import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import io.github.duzhaokun123.yaqianjiauto.BuildConfig
-import io.github.duzhaokun123.yaqianjiauto.application
 import io.github.duzhaokun123.yaqianjiauto.model.AccountMap
 import io.github.duzhaokun123.yaqianjiauto.model.ClassifiedParsedData
 import io.github.duzhaokun123.yaqianjiauto.model.MappedClassifiedParsedData
 import io.github.duzhaokun123.yaqianjiauto.model.ParsedData
 import io.github.duzhaokun123.yaqianjiauto.recorder.QianJiRecorder
+import io.github.duzhaokun123.yaqianjiauto.ui.base.BaseOverlayWindow
 import io.github.duzhaokun123.yaqianjiauto.ui.theme.YA自动记账Theme
-import io.github.duzhaokun123.yaqianjiauto.utils.runIO
-import io.github.duzhaokun123.yaqianjiauto.utils.runMain
 import io.github.duzhaokun123.yaqianjiauto.utils.toDataTime
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 
 class RecordOverlayWindow(
@@ -60,134 +41,47 @@ class RecordOverlayWindow(
     private val parserName: String,
     private val classifierName: String,
     private val accountMaps: List<AccountMap>
-) {
-    val windowManager = application.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    lateinit var composeView: ComposeView
-    lateinit var lifecycleOwner: LifecycleOwner
-    val timeoutTimer = Channel<Int>()
-    var timeoutTimerJob: Job? = null
-    val showing = Channel<Boolean>()
-    var finished = false
-    fun show(timeout: Int = 0) {
-        val params = WindowManager.LayoutParams(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-            PixelFormat.TRANSLUCENT
-        ).apply {
-            gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
-        }
+) : BaseOverlayWindow() {
+    override fun onLayoutParams(params: WindowManager.LayoutParams) {
+        params.gravity = Gravity.BOTTOM + Gravity.CENTER_HORIZONTAL
+        params.width = WindowManager.LayoutParams.MATCH_PARENT
+    }
 
-        composeView = ComposeView(application)
-
-        val viewModelStore = ViewModelStore()
-        lifecycleOwner = LifecycleOwner()
-        lifecycleOwner.performRestore(null)
-        composeView.setViewTreeLifecycleOwner(lifecycleOwner)
-        composeView.setViewTreeViewModelStoreOwner(object : ViewModelStoreOwner {
-            override val viewModelStore: ViewModelStore
-                get() = viewModelStore
-        })
-        composeView.setViewTreeSavedStateRegistryOwner(lifecycleOwner)
-
-        lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-        composeView.setContent {
-            val timeout by timeoutTimer.receiveAsFlow().collectAsState(initial = null)
-            YA自动记账Theme {
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Spacer(modifier = Modifier
-                        .fillMaxSize()
-                        .clickable { finish() })
-                    val showing by showing.receiveAsFlow().collectAsState(initial = false)
-                    AnimatedVisibility(
-                        visible = showing,
-                        modifier = Modifier.align(Alignment.BottomCenter),
-                        enter = slideInVertically { it * 2 },
-                        exit = slideOutVertically { it * 2 }
-                    ) {
-                        RecordCard(
-                            mappedClassifiedParsedData,
-                            appName,
-                            parserName,
-                            classifierName,
-                            accountMaps,
-                            onDismiss = ::finish,
-                            timeout = timeout
-                        )
-                    }
+    @Composable
+    override fun Content() {
+        YA自动记账Theme {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Spacer(modifier = Modifier
+                    .fillMaxSize()
+                    .clickable { finish() })
+                val showing by showing.receiveAsFlow().collectAsState(initial = false)
+                AnimatedVisibility(
+                    visible = showing,
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                    enter = slideInVertically { it * 2 },
+                    exit = slideOutVertically { it * 2 }
+                ) {
+                    RecordCard(
+                        mappedClassifiedParsedData,
+                        appName,
+                        parserName,
+                        classifierName,
+                        accountMaps,
+                        onDismiss = ::finish
+                    )
                 }
             }
         }
-        if (timeout >= 0) {
-            timeoutTimerJob = runMain {
-                for (i in timeout downTo 0) {
-                    timeoutTimer.send(i)
-                    delay(1000)
-                }
-                record(mappedClassifiedParsedData)
-                finish()
-            }
-        }
-        windowManager.addView(composeView, params)
-        runMain {
-            showing.send(true)
-        }
-        lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_START)
     }
 
-    private fun finish() {
-        if (finished) return
-        finished = true
-        runMain {
-            showing.send(false)
-            delay(250)
-            lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-            lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
-            windowManager.removeView(composeView)
-            lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        }
-        timeoutTimerJob?.cancel()
-        timeoutTimer.cancel()
-    }
-
-    class LifecycleOwner : SavedStateRegistryOwner {
-        private var lifecycleRegistry = LifecycleRegistry(this)
-        private var savedStateRegistryController = SavedStateRegistryController.create(this)
-
-        val isInitialized: Boolean
-            get() = true
-
-        override val lifecycle: Lifecycle
-            get() = lifecycleRegistry
-
-        fun setCurrentState(state: Lifecycle.State) {
-            lifecycleRegistry.currentState = state
-        }
-
-        fun handleLifecycleEvent(event: Lifecycle.Event) {
-            lifecycleRegistry.handleLifecycleEvent(event)
-        }
-
-        override val savedStateRegistry: SavedStateRegistry
-            get() = savedStateRegistryController.savedStateRegistry
-
-        fun performRestore(savedState: Bundle?) {
-            savedStateRegistryController.performRestore(savedState)
-        }
-
-        fun performSave(outBundle: Bundle) {
-            savedStateRegistryController.performSave(outBundle)
-        }
-    }
+    private fun finish() = finish(250)
 }
 
 @Composable
 fun RecordCard(
     mappedClassifiedParsedData: MappedClassifiedParsedData,
     appName: String, parserName: String, classifierName: String, accountMaps: List<AccountMap>,
-    onDismiss: () -> Unit, timeout: Int?
+    onDismiss: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -240,9 +134,6 @@ fun RecordCard(
                 }, modifier = Modifier.weight(1f)) {
                     Row {
                         Text("记账")
-                        if (timeout != null) {
-                            Text("($timeout)")
-                        }
                     }
                 }
             }
@@ -259,7 +150,7 @@ fun PreviewRecordCard() {
                 ClassifiedParsedData(
                     ParsedData(
                         ParsedData.Type.Expense,
-                        "accoun1",
+                        "account1",
                         10.0,
                         "target",
                         "remark",
@@ -272,7 +163,7 @@ fun PreviewRecordCard() {
             BuildConfig.APPLICATION_ID,
             "parser",
             "classifier",
-            listOf(AccountMap("account1", "account2")), onDismiss =  {}, timeout =  5
+            listOf(AccountMap("account1", "account2")), onDismiss = {}
         )
     }
 }
