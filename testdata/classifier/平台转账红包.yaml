@@ -1,0 +1,4 @@
+type: [2]
+category: 转账红包
+target: "^淘宝。*com$"
+remark: ".*"

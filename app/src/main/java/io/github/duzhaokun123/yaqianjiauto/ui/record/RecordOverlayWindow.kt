@@ -98,12 +98,12 @@ fun RecordCard(
             Text("-> { ${accountMaps.joinToString("; ") { "${it.from} -> ${it.to}" }} }")
             Text("->")
             Row {
-                Text("balance", modifier = Modifier.weight(1f))
-                Text(mappedClassifiedParsedData.classifiedParsedData.parsedData.balance.toString())
-            }
-            Row {
                 Text("type", modifier = Modifier.weight(1f))
                 Text(ParsedData.typeToStr(mappedClassifiedParsedData.classifiedParsedData.parsedData.type))
+            }
+            Row {
+                Text("balance", modifier = Modifier.weight(1f))
+                Text(mappedClassifiedParsedData.classifiedParsedData.parsedData.balance.toString())
             }
             Row {
                 Text("category", modifier = Modifier.weight(1f))
@@ -121,8 +121,12 @@ fun RecordCard(
                 Text(mappedClassifiedParsedData.classifiedParsedData.parsedData.timestamp.toDataTime())
             }
             Row {
+                Text("target", modifier = Modifier.weight(1f))
+                Text(mappedClassifiedParsedData.classifiedParsedData.parsedData.target)
+            }
+            Row {
                 Text("remark", modifier = Modifier.weight(1f))
-                Text("${mappedClassifiedParsedData.classifiedParsedData.parsedData.target} - ${mappedClassifiedParsedData.classifiedParsedData.parsedData.remark}")
+                Text(mappedClassifiedParsedData.classifiedParsedData.parsedData.remark)
             }
             Row {
                 TextButton(onClick = { onDismiss() }, modifier = Modifier.weight(1f)) {

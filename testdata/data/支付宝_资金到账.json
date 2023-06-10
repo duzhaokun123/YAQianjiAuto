@@ -1,1 +1,76 @@
-{"title":"资金到账通知","templateName":"转账到户收款通知","templateType":"BN","content":{"status":"资金到账通知","date":"06月08日","amountTip":"","money":"0.07","unit":"元","infoTip":"","failTip":"","goto":"","content":[{"title":"付款方：","content":"淘宝（中国）软件有限公司 wts***@service.taobao.com"},{"title":"到账时间：","content":"2023-06-08 12:12"}],"ad":"","actions":[{"name":"","url":""},{"name":"查看详情","url":"alipays://platformapi/startapp?appId=66666676&appClearTop=false&url=/www/index.html?tradeNo=20230608020070011500000071343041&bizType=BIZFUND&startMultApp=YES"}]},"extraInfo":{"sceneExt2":{"sceneType":"nativeApp","sceneName":"支付助手","sceneIcon":"https://gw.alipayobjects.com/mdn/rms_f96971/afts/img/A*leNcS41oUu0AAAAAAAAAAABkARQnAQ"},"assistMsg2":"摇一摇拜财神","assistMsg1":"","topSubContent":"到账成功","preValue":"￥","buttonLink":"","isPaymentMsg":true,"assistName2":"收款内容","cardAdInfo":{"p10_tmp20220914":{"bizMonitor":{"marketingUniqueId":"MUad96b07505744186ad92dc2dd717aa07","marketingRuleId":"MRf47be65dac0f4019adef4d6b366056e7","style":"recommendAssistLine","marketingItemId":"MIe0e514df1c4e4fbdaa1fefa3534a9f98"},"expireTime":1717733564527,"marketingUniqueId":"MUad96b07505744186ad92dc2dd717aa07","minClientVersion":"10.1.98","recommendTemplateId":"recommendAssistLine","viewInfo":{"assistMsg":"做任务赚最低0.01元","btnBorderColor":"#FFAF87","btnText":"去领取","btnTextColor":"#FF6010","assistMsgColor":"#FF6010","actionUrl":"alipays://platformapi/startapp?appId=2021002114615149&chInfo=ch_TTZSY__chsub_XIAOXIDAIHUO","assistName":"本次奖励"}}},"templateId":"WALLET-FWC@remindNumber","content":"0.07","linkName":""}}
+{
+    "title": "资金到账通知",
+    "templateName": "转账到户收款通知",
+    "templateType": "BN",
+    "content": {
+        "status": "资金到账通知",
+        "date": "06月08日",
+        "amountTip": "",
+        "money": "0.07",
+        "unit": "元",
+        "infoTip": "",
+        "failTip": "",
+        "goto": "",
+        "content": [
+            {
+                "title": "付款方：",
+                "content": "淘宝（中国）软件有限公司 wts***@service.taobao.com"
+            },
+            {
+                "title": "到账时间：",
+                "content": "2023-06-08 12:12"
+            }
+        ],
+        "ad": "",
+        "actions": [
+            {
+                "name": "",
+                "url": ""
+            },
+            {
+                "name": "查看详情",
+                "url": "alipays://platformapi/startapp?appId=66666676&appClearTop=false&url=/www/index.html?tradeNo=20230608020070011500000071343041&bizType=BIZFUND&startMultApp=YES"
+            }
+        ]
+    },
+    "extraInfo": {
+        "sceneExt2": {
+            "sceneType": "nativeApp",
+            "sceneName": "支付助手",
+            "sceneIcon": "https://gw.alipayobjects.com/mdn/rms_f96971/afts/img/A*leNcS41oUu0AAAAAAAAAAABkARQnAQ"
+        },
+        "assistMsg2": "摇一摇拜财神",
+        "assistMsg1": "",
+        "topSubContent": "到账成功",
+        "preValue": "￥",
+        "buttonLink": "",
+        "isPaymentMsg": true,
+        "assistName2": "收款内容",
+        "cardAdInfo": {
+            "p10_tmp20220914": {
+                "bizMonitor": {
+                    "marketingUniqueId": "MUad96b07505744186ad92dc2dd717aa07",
+                    "marketingRuleId": "MRf47be65dac0f4019adef4d6b366056e7",
+                    "style": "recommendAssistLine",
+                    "marketingItemId": "MIe0e514df1c4e4fbdaa1fefa3534a9f98"
+                },
+                "expireTime": 1717733564527,
+                "marketingUniqueId": "MUad96b07505744186ad92dc2dd717aa07",
+                "minClientVersion": "10.1.98",
+                "recommendTemplateId": "recommendAssistLine",
+                "viewInfo": {
+                    "assistMsg": "做任务赚最低0.01元",
+                    "btnBorderColor": "#FFAF87",
+                    "btnText": "去领取",
+                    "btnTextColor": "#FF6010",
+                    "assistMsgColor": "#FF6010",
+                    "actionUrl": "alipays://platformapi/startapp?appId=2021002114615149&chInfo=ch_TTZSY__chsub_XIAOXIDAIHUO",
+                    "assistName": "本次奖励"
+                }
+            }
+        },
+        "templateId": "WALLET-FWC@remindNumber",
+        "content": "0.07",
+        "linkName": ""
+    }
+}

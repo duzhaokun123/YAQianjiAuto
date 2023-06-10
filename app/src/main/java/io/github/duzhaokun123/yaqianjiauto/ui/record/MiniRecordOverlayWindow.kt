@@ -111,7 +111,7 @@ fun MiniRecordCard(
                     ParsedData.Type.Income -> "+"
                     ParsedData.Type.Transfer -> ""
                     else -> throw Exception("Unknown $type")
-                } + "%.2f".format(mappedClassifiedParsedData.classifiedParsedData.parsedData.balance)
+                } + "￥%.2f".format(mappedClassifiedParsedData.classifiedParsedData.parsedData.balance)
                 Text(
                     balance, style = MaterialTheme.typography.titleLarge, color = when (type) {
                         ParsedData.Type.Expense -> MaterialTheme.colorScheme.error

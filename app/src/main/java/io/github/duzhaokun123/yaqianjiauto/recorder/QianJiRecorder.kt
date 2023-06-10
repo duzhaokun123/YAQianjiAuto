@@ -11,7 +11,7 @@ object QianJiRecorder: BaseRecorder {
     const val TAG = "QianJiRecorder"
     override val name: String = "钱迹"
     override fun record(mappedClassifiedParsedData: MappedClassifiedParsedData) {
-        when(mappedClassifiedParsedData.classifiedParsedData.parsedData!!.type) {
+        when(mappedClassifiedParsedData.classifiedParsedData.parsedData.type) {
             ParsedData.Type.Expense -> expenseIncom(mappedClassifiedParsedData)
             ParsedData.Type.Income -> expenseIncom(mappedClassifiedParsedData)
             ParsedData.Type.Transfer -> transfer(mappedClassifiedParsedData)
@@ -24,9 +24,9 @@ object QianJiRecorder: BaseRecorder {
             .scheme("qianji")
             .authority("publicapi")
             .path("addbill")
-            .appendQueryParameter("money", mappedClassifiedParsedData.classifiedParsedData.parsedData!!.balance.toString())
+            .appendQueryParameter("money", mappedClassifiedParsedData.classifiedParsedData.parsedData.balance.toString())
             .appendQueryParameter("time", mappedClassifiedParsedData.classifiedParsedData.parsedData.timestamp.toDataTime())
-            .appendQueryParameter("remark", "${mappedClassifiedParsedData.classifiedParsedData.parsedData.target} - ${mappedClassifiedParsedData.classifiedParsedData.parsedData.remark}")
+//            .appendQueryParameter("remark", "${mappedClassifiedParsedData.classifiedParsedData.parsedData.target} - ${mappedClassifiedParsedData.classifiedParsedData.parsedData.remark}")
             .appendQueryParameter("catename", mappedClassifiedParsedData.classifiedParsedData.subcategory ?: mappedClassifiedParsedData.classifiedParsedData.category)
 //            .appendQueryParameter("accountname", mappedClassifiedParsedData.overrideAccount)
             .appendQueryParameter("showresutl", "1")
@@ -34,6 +34,12 @@ object QianJiRecorder: BaseRecorder {
         mappedClassifiedParsedData.overrideAccount?.let {
             uri.appendQueryParameter("accountname", it)
         }
+
+        val remark = StringBuilder(mappedClassifiedParsedData.classifiedParsedData.parsedData.target)
+        mappedClassifiedParsedData.classifiedParsedData.parsedData.remark.takeIf { it.isNotBlank() }?.let {
+            remark.append(" - $it")
+        }
+        uri.appendQueryParameter("remark", remark.toString())
 
         when(mappedClassifiedParsedData.classifiedParsedData.parsedData.type) {
             ParsedData.Type.Expense -> uri.appendQueryParameter("type", "0")
