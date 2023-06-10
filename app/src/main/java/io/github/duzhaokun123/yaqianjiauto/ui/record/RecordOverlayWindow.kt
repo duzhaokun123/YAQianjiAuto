@@ -13,10 +13,11 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -129,9 +130,10 @@ fun RecordCard(
                 Text(mappedClassifiedParsedData.classifiedParsedData.parsedData.remark)
             }
             Row {
-                TextButton(onClick = { onDismiss() }, modifier = Modifier.weight(1f)) {
+                OutlinedButton(onClick = { onDismiss() }, modifier = Modifier.weight(1f)) {
                     Text("取消")
                 }
+                Spacer(modifier = Modifier.width(16.dp))
                 Button(onClick = {
                     record(mappedClassifiedParsedData)
                     onDismiss()
