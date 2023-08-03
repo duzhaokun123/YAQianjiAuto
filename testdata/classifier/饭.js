@@ -1,7 +1,7 @@
 function classify(parsedData) {
     json = JSON.parse(parsedData)
     if (json.type != 1) return
-    patt = /^西安石油大学$/i
+    patt = /^西安石油大学$|^德克士|^迈德思客|麦当劳|^饿了么$|^肯德基|^必胜客/i
     if (patt.test(json.target) == false) return
     result = {
         "category": "三餐",

@@ -23,7 +23,8 @@ function parse(data, format, timestamp) {
     } else {
         result.type = 2
     }
-    result.account = "余额宝"
+    result.balance = Math.abs(result.balance)
+    result.account = "支付宝"
     result.target = "基金"
     result.remark = leftText + ": " + left + " " + middleText + ": " + middle + " " + rightText + ": " + right
     result.extras = {}

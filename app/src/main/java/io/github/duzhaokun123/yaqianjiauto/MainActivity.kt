@@ -1,5 +1,6 @@
 package io.github.duzhaokun123.yaqianjiauto
 
+import android.app.ActivityManager
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity

@@ -1,6 +1,7 @@
 package io.github.duzhaokun123.yaqianjiauto.xposed.hooks.alipay
 
 import com.github.kyuubiran.ezxhelper.utils.Log.logexIfThrow
+import com.github.kyuubiran.ezxhelper.utils.loadClass
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import io.github.duzhaokun123.yaqianjiauto.BuildConfig
 import io.github.duzhaokun123.yaqianjiauto.xposed.BaseHook
@@ -14,8 +15,10 @@ object AlipayHook : BaseHook {
         get() = "com.eg.android.AlipayGphone"
     override val appName: String
         get() = "支付宝"
+    override val applicationClass: Class<*>
+        get() = loadClass("com.alipay.mobile.quinox.LauncherApplication")
 
-    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam?) {
+    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         super.handleLoadPackage(lpparam)
         runCatching {
             if (BuildConfig.DEBUG)

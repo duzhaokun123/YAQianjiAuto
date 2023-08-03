@@ -10,7 +10,7 @@ object SelfHook: BaseHook {
     override val appName: String
         get() = "YA自动记账"
 
-    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam?) {
+    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         super.handleLoadPackage(lpparam)
         System.setProperty("xposed.hooked", "true")
     }

@@ -26,7 +26,7 @@ class XposedInit : IXposedHookLoadPackage {
                 runCatching {
                     hook.handleLoadPackage(lpparam)
                 }.onSuccess {
-                    Log.dx("${hook.appName} hooked.")
+                    Log.dx("${hook.appName}(${lpparam.processName}) hooked.")
                 }.logexIfThrow(hook.appName)
             }
         }

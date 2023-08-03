@@ -1,0 +1,81 @@
+{
+    "title": "到账成功",
+    "templateName": "支付助手",
+    "templateType": "BN",
+    "content": {
+        "status": "到账成功",
+        "date": "06月12日",
+        "amountTip": "",
+        "money": "0.07",
+        "unit": "元",
+        "infoTip": "",
+        "failTip": "",
+        "goto": "alipays://platformapi/startapp?appId=20000003&actionType=toBillDetails&tradeNO=20230612200040011100000034414063&bizType=D_TRANSFER",
+        "content": [
+            {
+                "title": "交易对象：",
+                "content": "秒杀福利邦"
+            },
+            {
+                "title": "收款内容：",
+                "content": "商家现金红包-来自秒杀福利邦"
+            }
+        ],
+        "ad": [],
+        "actions": [
+            {
+                "name": "",
+                "url": ""
+            },
+            {
+                "name": "查看详情",
+                "url": "alipays://platformapi/startapp?appId=20000003&actionType=toBillDetails&tradeNO=20230612200040011100000034414063&bizType=D_TRANSFER"
+            }
+        ]
+    },
+    "extraInfo": {
+        "topSubContent": "到账成功",
+        "preValue": "￥",
+        "isPaymentMsg": true,
+        "assistName2": "收款内容",
+        "assistName3": "",
+        "assistName1": "交易对象",
+        "templateId": "WALLET-FWC@remindNumber",
+        "content": "0.07",
+        "linkName": "",
+        "assistMsg3": "",
+        "sceneExt2": {
+            "sceneUrl": "alipays://platformapi/startapp?appId=20000003&actionType=toBillDetails&tradeNO=20230612200040011100000034414063&bizType=D_TRANSFER",
+            "sceneType": "nativeApp",
+            "sceneName": "支付宝红包",
+            "sceneIcon": "https://gw.alicdn.com/imgextra/i4/O1CN01C7dyDF1bCWvBNvqxU_!!6000000003429-2-tps-124-124.png"
+        },
+        "assistMsg2": "商家现金红包-来自秒杀福利邦",
+        "assistMsg1": "秒杀福利邦",
+        "assistName4": "",
+        "assistMsg5": "",
+        "assistMsg4": "",
+        "assistName5": "",
+        "buttonLink": "",
+        "cardAdInfo": {
+            "p14": {
+                "bizMonitor": {
+                    "marketingUniqueId": "MU2f01b1509b5d47e4baf55a5a7242523b",
+                    "marketingRuleId": "MRe3456c198e3e41889fef4dc85490962f",
+                    "style": "singleLineText3",
+                    "marketingItemId": "MI5ee755cfdcf84d62a1e3bd726665dce8"
+                },
+                "expireTime": 1718036650839,
+                "marketingUniqueId": "MU2f01b1509b5d47e4baf55a5a7242523b",
+                "minClientVersion": "10.1.98",
+                "recommendTemplateId": "singleLineText3",
+                "viewInfo": {
+                    "arrowIcon": "https://img.alicdn.com/tfs/TB1fN1OdggP7K4jSZFqXXamhVXa-32-52.png",
+                    "actionUrl": "alipays://platformapi/startapp?appId=2021001168603174&page=pages%2Findex%2Findex&chInfo=bcdzxiaoxi",
+                    "text": "进入红包小程序",
+                    "textColor": "#333333"
+                }
+            }
+        }
+    }
+}

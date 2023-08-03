@@ -1,18 +1,18 @@
 [versions]
-agp = "8.0.2"
+agp = "8.1.0"
 #noinspection GradleDependency
 codeeditor = "v3.1.1"
+#noinspection GradleDependency
 ezXHelper = "1.0.3"
 gson = "2.10.1"
 jsEvaluatorForAndroid = "v6.0.0"
-kotlin = "1.8.21"
-ksp = "1.8.21-1.0.11"
+kotlin = "1.9.0"
+ksp = "1.9.0-1.0.11"
 core-ktx = "1.10.1"
-espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.6.1"
 activity-compose = "1.7.2"
-compose-bom = "2023.06.00"
-room = "2.5.1"
+compose-bom = "2023.06.01"
+room = "2.5.2"
 snakeyamlEngine = "2.6"
 xmlToJson = "1.5.3"
 xposed-api = "82"
@@ -26,7 +26,6 @@ core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx
 ezXHelper = { module = "com.github.kyuubiran:EzXHelper", version.ref = "ezXHelper" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 jsEvaluatorForAndroid = { module = "com.github.evgenyneu:js-evaluator-for-android", version.ref = "jsEvaluatorForAndroid" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle-runtime-ktx" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activity-compose" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose-bom" }
@@ -36,6 +35,7 @@ ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+material-icons-extended  = { group = "androidx.compose.material", name = "material-icons-extended" }
 xmlToJson = { module = "com.github.smart-fun:XmlToJson", version.ref = "xmlToJson" }
 xposed-api = { module = "de.robv.android.xposed:api", version.ref = "xposed-api" }
 
