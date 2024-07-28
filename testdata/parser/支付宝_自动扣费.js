@@ -3,7 +3,11 @@ function parse(data, format, timestamp) {
     const json = JSON.parse(data)
     if (json.templateType != "BN") return
     if (json.title != "自动扣款成功") return
-    result = {}
+    result = {
+        remark: "",
+        account: "",
+        target: "",
+    }
     result.type = 1
     result.balance = parseFloat(json.content.money)
     json.content.content.forEach((item) => {

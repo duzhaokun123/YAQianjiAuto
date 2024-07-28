@@ -1,0 +1,131 @@
+{
+    "title": "自动扣款成功",
+    "templateName": "支付助手",
+    "templateType": "BN",
+    "content": {
+        "status": "自动扣款成功",
+        "date": "07月28日",
+        "amountTip": "",
+        "money": "0.00",
+        "unit": "元",
+        "infoTip": "",
+        "failTip": "",
+        "goto": "alipays://platformapi/startapp?appId=20000003&actionType=toBillDetails&tradeNO=2024072822001465001402950258&bizType=TRADE",
+        "content": [
+            {
+                "title": "扣款服务：",
+                "content": "哈啰骑行费用"
+            },
+            {
+                "title": "抵扣金额：",
+                "content": "合计抵扣 1.80"
+            },
+            {
+                "title": "交易对象：",
+                "content": "哈啰出行"
+            }
+        ],
+        "ad": [],
+        "actions": [
+            {
+                "name": "管理当前自动扣款服务",
+                "url": "alipays://platformapi/startapp?appId=60000157&appClearTop=false&startMultApp=YES&url=https://render.alipay.com/p/s/mdeduct/www/index.html&unsign_params=agreementNo%3D20235209927149673000"
+            },
+            {
+                "name": "查看详情",
+                "url": "alipays://platformapi/startapp?appId=20000003&actionType=toBillDetails&tradeNO=2024072822001465001402950258&bizType=TRADE"
+            }
+        ]
+    },
+    "extraInfo": {
+        "topSubContent": "自动扣款成功",
+        "preValue": "￥",
+        "languageType": "zh-Hans",
+        "isPaymentMsg": true,
+        "assistName2": "抵扣金额",
+        "assistName3": "交易对象",
+        "assistName1": "扣款服务",
+        "templateId": "WALLET-FWC@remindNumber",
+        "content": "0.00",
+        "linkName": "管理当前自动扣款服务",
+        "assistMsg3": "哈啰出行",
+        "sceneExt2": {
+            "sceneUrl": "alipays://platformapi/startApp?appId=2017050407110255",
+            "sceneType": "miniApp",
+            "sceneName": "哈啰",
+            "sceneIcon": "https://appstoreisvpic.alipayobjects.com/prod/f5c0fdae-6f2a-44c5-a7f2-1b5afe44a3d4.png"
+        },
+        "assistMsg2": "合计抵扣 1.80",
+        "assistMsg1": "哈啰骑行费用",
+        "assistName4": "",
+        "assistMsg5": "",
+        "assistMsg4": "",
+        "assistName5": "",
+        "buttonLink": "alipays://platformapi/startapp?appId=60000157&appClearTop=false&startMultApp=YES&url=https://render.alipay.com/p/s/mdeduct/www/index.html&unsign_params=agreementNo%3D20235209927149673000",
+        "cardAdInfo": {
+            "p116": {
+                "bizMonitor": {
+                    "marketingUniqueId": "MU517f420c580f4624a863f768246b0840",
+                    "marketingRuleId": "MRa4d055b60a7f4c0e9833db16428c0f72",
+                    "style": "actionLine2",
+                    "marketingItemId": "MI606fcd915f46409ea7d69d56f53de83c"
+                },
+                "expireTime": 1753668821392,
+                "marketingUniqueId": "MU517f420c580f4624a863f768246b0840",
+                "minClientVersion": "10.1.98",
+                "recommendTemplateId": "actionLine2",
+                "viewInfo": {
+                    "btnName": "支付奖励",
+                    "actionType": "link",
+                    "tagColor": "#FF6011",
+                    "actionUrl": "alipays://platformapi/startapp?appId=20002065&type=detail&refer=scene&voiceOpen=true&chInfo=ch_messageTab__chsub_Ndetail&aggSceneId=SE20100003&recBizType=discovery.vv&enableTask=1",
+                    "tag": "看视频领红包"
+                }
+            },
+            "p115": {
+                "bizMonitor": {
+                    "marketingUniqueId": "MU3c70614392124d26a998af7f210fd536",
+                    "outBizId": "2024072822001465001402950258",
+                    "appId": "2017050407110255",
+                    "marketingRuleId": "MR9c4c13c969bf4b7aa74ceaec2d7f7a40",
+                    "style": "actionLine",
+                    "pid": "2088421968682835",
+                    "tradeSource": "other",
+                    "marketingItemId": "MIab41f90d9f554a04af2665d2d6ff38d1"
+                },
+                "expireTime": 1753668821319,
+                "marketingUniqueId": "MU3c70614392124d26a998af7f210fd536",
+                "minClientVersion": "10.1.98",
+                "recommendTemplateId": "actionLine",
+                "viewInfo": {
+                    "btnName": "进入哈啰",
+                    "actionUrl": "alipays://platformapi/startApp?appId=2017050407110255",
+                    "tag": ""
+                }
+            },
+            "p10": {
+                "bizMonitor": {
+                    "marketingUniqueId": "MUb1ad5189b2164ca3826cc863441608c2",
+                    "marketingRuleId": "MR06d335c428c6496aa5945b18100d53f8",
+                    "style": "recommendAssistLine",
+                    "marketingItemId": "MIfcfe36a686704f3081f59dc11b44f376"
+                },
+                "expireTime": 1753668821476,
+                "marketingUniqueId": "MUb1ad5189b2164ca3826cc863441608c2",
+                "minClientVersion": "10.1.98",
+                "recommendTemplateId": "recommendAssistLine",
+                "viewInfo": {
+                    "assistMsg": "4天后过期，剩余89次支付立减优惠未使用",
+                    "btnBorderColor": "#FF6011",
+                    "actionType": "link",
+                    "homePageContent": "你有支付奖励待领取",
+                    "btnText": "去使用",
+                    "btnTextColor": "#FF6011",
+                    "assistMsgColor": "#FF6011",
+                    "actionUrl": "alipays://platformapi/startapp?appId=2021001195648002&page=pages/campus-index/index?chInfo=IoTsendme",
+                    "assistName": "本次奖励"
+                }
+            }
+        }
+    }
+}
